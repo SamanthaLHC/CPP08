@@ -4,11 +4,11 @@ CXX = c++
 CXXFLAGS = -MMD -g3 -Wall -Wextra -Werror -std=c++98
 
 
-INCLUDE = -I
+INCLUDE = -I./
 
 OBJ_PATH = ./objs/
 
-SRCS = ./ main.cpp
+SRCS = ./main.cpp
 
 OBJS	= $(SRCS:%.cpp=$(OBJ_PATH)%.o)
 DEPS	= $(SRCS:%.cpp=$(OBJ_PATH)%.d)
