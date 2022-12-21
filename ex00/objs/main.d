@@ -1,1 +1,1 @@
-objs/./main.o: main.cpp
+objs/./main.o: main.cpp colors.h easyfind.hpp
