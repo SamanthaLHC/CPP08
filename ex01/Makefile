@@ -4,14 +4,17 @@ CXX = c++
 CXXFLAGS = -MMD -g3 -Wall -Wextra -Werror -std=c++98
 
 
-INCLUDE = -I./
+INCLUDE = -I./includes
 
+SRCS_PATH = ./srcs/
 OBJ_PATH = ./objs/
 
-SRCS = ./main.cpp
+SRCS = $(addprefix $(SRCS_PATH), \
+		Span.cpp \
+		main.cpp)
 
-OBJS	= $(SRCS:%.cpp=$(OBJ_PATH)%.o)
-DEPS	= $(SRCS:%.cpp=$(OBJ_PATH)%.d)
+OBJS	= $(SRCS:$(SRCS_PATH)%.cpp=$(OBJ_PATH)%.o)
+DEPS	= $(SRCS:$(SRCS_PATH)%.cpp=$(OBJ_PATH)%.d)
 
 all: $(NAME)
 
@@ -39,4 +42,6 @@ grind: ${NAME}
 run: $(NAME)
 	./$(NAME)
 
-.PHONY: clean fclean re grind test
+.PHONY: clean fclean re grind run
+
+-include ${DEPS}
