@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <map>
 
 int main()
 {
@@ -13,10 +14,12 @@ int main()
 	v_arr.push_back(3);
 	v_arr.push_back(16);
 	v_arr.push_back(8);
-	v_arr.push_back(12);
+	v_arr.push_back(8);
 	std::cout << BBLU << "should be a success" << RES << std::endl;
 	if (easyfind(v_arr, 8) != v_arr.end())
 		std::cout << BGRN << "success" << RES << std::endl;
+	if (&(*easyfind(v_arr, 8)) != &(*std::find(v_arr.rbegin(), v_arr.rend(), 8)))
+		std::cout << BGRN << "Easyfind and reversed find found != iterators" << RES << std::endl;
 	std::cout << BBLU << "should be failed" << RES << std::endl;
 	easyfind(v_arr, 15);
 
@@ -33,5 +36,14 @@ int main()
 		std::cout << BGRN << "Easyfind and reversed find found != iterators" << RES << std::endl;
 	std::cout << BBLU << "should be failed" << RES << std::endl;
 	easyfind(list_arr, 15);
+
+	std::cout << BCYN << "__________CHECK WITH MAP_______" << RES << std::endl;
+	std::map<int, int> m_arr;
+	m_arr.insert(8, 9);
+	m_arr.insert(4, 3);
+	if (easyfind(m_arr, 3) != m_arr.end())
+		std::cout << BGRN << "success" << RES << std::endl;
+	std::cout << BBLU << "should be failed" << RES << std::endl;
+	easyfind(m_arr, 15);
 
 }
