@@ -15,7 +15,6 @@ typename T::iterator easyfind(T& container_type, unsigned int n)
 		return ret;
 	}
 	return ret;
-	
 }
 
 #endif
