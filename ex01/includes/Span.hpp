@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <vector>
 
 
 class Span
@@ -37,14 +38,16 @@ class Span
 //______________Members functions___________________________________________
 
 		void addNumber(unsigned int n);
-		unsigned int const shortestSpan();
-		unsigned int const longestSpan();
+		int shortestSpan();
+		int longestSpan();
+		// multiple call to addNumber with a range of iterators
+		// void fillSpan(la quantité de cases à remplir, le nombre);
 
 	private:
 
 		Span(void);
-		unsigned int const	_max;
-
+		unsigned int		_max;
+		std::vector<int>	_span;
 };
 
 #endif

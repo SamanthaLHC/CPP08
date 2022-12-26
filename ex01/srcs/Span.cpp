@@ -1,26 +1,26 @@
 #include "colors.h"
-#include "span.hpp"
+#include "Span.hpp"
+#include <algorithm>
+#include <iterator>
+
+#define MAX_ELEM std::max_element(this->_span.begin(), this->_span.end())
+#define MIN_ELEM std::min_element(this->_span.begin(), this->_span.end())
 
 // constructs ans destruct======================================================
 //=============================================================================
 
-Span::Span(void) :
-{
-	std::cout << BWHT << " Default constructor." << RES << std::endl;
-	return;
-}
+// Default construct in private field
+Span::Span(void) : _max(0) {}
 
-Span::Span(unsigned int const max) : _max(max)
+Span::Span(unsigned int max) : _max(max)
 {
-
 	std::cout << BWHT << " Constructor overload called." << RES << std::endl;
 	return;
 }
 
-Span::Span(Span const &cpy) : _max(cpy._max)
+Span::Span(Span const &cpy) : _max(cpy._max), _span(cpy._span)
 {
 	std::cout << BWHT << " Copy constructor called." << RES << std::endl;
-	*this = cpy;
 }
 
 Span::~Span(void)
@@ -34,6 +34,11 @@ Span::~Span(void)
 
 Span &Span::operator=(Span const &rhs)
 {
+	if (this != &rhs)
+	{
+		this->_span = rhs._span;
+		this->_max = rhs._max;
+	}
 	return (*this);
 }
 
@@ -63,15 +68,44 @@ const char *Span::NoSpanPossible::what() const throw()
 
 void Span::addNumber(unsigned int n)
 {
-
+	if (this->_span.size() < this->_max)
+		this->_span.push_back(n);
+	else
+		throw FullArray();
 }
 
-unsigned int const Span::shortestSpan()
+int Span::shortestSpan()
 {
-
+	if (this->_span.size() <= 1)
+		throw NoSpanPossible();
+	else
+	{
+		std::sort(this->_span.begin(), this->_span.end());
+		std::vector<int>::iterator i = this->_span.begin();
+		std::vector<int>::iterator j = this->_span.begin() +1;
+		int result = this->longestSpan();
+		int test = 0;
+		while (j != this->_span.end())
+		{
+			test = std::max(*i, *j) - std::min(*i, *j);
+			if (result > test)
+				result = test;
+			i++;
+			j++;
+		}
+		return result;
+	}
 }
 
-unsigned int const Span::longestSpan()
+int Span::longestSpan()
 {
-
+	if (this->_span.size() > 1)
+		return *MAX_ELEM - *MIN_ELEM;
+	else
+		throw NoSpanPossible();
 }
+
+// void Span::fillSpan(la quantité de cases à remplir(max), le nombre);
+// {
+// si la quantite est trop grande
+// }
