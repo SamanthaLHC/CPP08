@@ -22,6 +22,7 @@ class Span
 //______________Accessors__________________________________________________
 
 		unsigned int get_max() const;
+		unsigned int get_size() const;
 
 //______________Exceptions__________________________________________________
 
@@ -40,8 +41,8 @@ class Span
 		void addNumber(unsigned int n);
 		int shortestSpan();
 		int longestSpan();
-		// multiple call to addNumber with a range of iterators
-		// void fillSpan(la quantité de cases à remplir, le nombre);
+		void fillSpan(std::vector<int>::iterator begin, std::vector<int>::iterator end);
+		void printSpan();
 
 	private:
 

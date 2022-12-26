@@ -6,6 +6,17 @@
 #include <list>
 #include <map>
 
+std::vector<int> generate_vector_src()
+{
+	std::vector<int> v;
+	srand(time(NULL));
+	for (int i = 0; i < 15000; i++)
+	{
+		v.push_back(rand() % 100000);
+	}
+	return v;
+}
+
 int main()
 {
 	std::cout << BCYN << "=================MAIN DU SUJET====================" << RES << std::endl;
@@ -62,6 +73,44 @@ int main()
 	catch (const std::exception &e)
 	{
 		std::cout << BYEL << "Exception caught:" << RES << std::endl;
+		std::cout << BRED << e.what() << RES << std::endl;
+	}
+	std::cout << BCYN << "TEST SUCCESS FILLSPAN " << RES << std::endl;
+	std::vector<int> v = generate_vector_src();
+	Span sp = Span(150);
+	try
+	{
+		__attribute__((unused)) int unused = sp.shortestSpan();
+		std::cout << BRED << "ERROR: No exception on empty Span"
+				  << RES << std::endl;
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << BYEL << "EXPECTED: Exception caught:" << RES << std::endl;
+		std::cout << BYEL << e.what() << RES << std::endl;
+	}
+	sp.fillSpan((v.begin() + 12), (v.begin() + 34));
+	std::cout << BGRN << "AFTER filling, shortest:" << sp.shortestSpan()
+			  << RES << std::endl;
+	std::cout << BGRN << "AFTER filling, longest:" << sp.longestSpan()
+			  << RES << std::endl;
+	std::cout << BBLU << "expected size 22 : " << sp.get_size() << RES << std::endl;
+	Span sp1 = Span(15000);
+	sp1.fillSpan(v.begin(), v.end());
+	std::cout << BGRN << "AFTER filling, shortest:" << sp1.shortestSpan()
+			  << RES << std::endl;
+	std::cout << BGRN << "AFTER filling, longest:" << sp1.longestSpan()
+			  << RES << std::endl;
+	std::cout << BBLU << "expected size 15000 : " << sp1.get_size() << RES << std::endl;
+	std::cout << BCYN << "TEST FULL ARRAY EXCEPTION IN FILLSPAN " << RES << std::endl;
+	Span sp2(200);
+	try
+	{
+		sp2.fillSpan(v.begin(), v.end());
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << BYEL << "EXPECTED: Exception caught:" << RES << std::endl;
 		std::cout << BRED << e.what() << RES << std::endl;
 	}
 }

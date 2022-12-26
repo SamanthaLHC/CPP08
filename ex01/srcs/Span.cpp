@@ -50,6 +50,11 @@ unsigned int Span::get_max() const
 	return this->_max;
 }
 
+unsigned int Span::get_size() const
+{
+	return this->_span.size();
+}
+
 // Exceptions handler =========================================================
 //=============================================================================
 
@@ -82,7 +87,7 @@ int Span::shortestSpan()
 	{
 		std::sort(this->_span.begin(), this->_span.end());
 		std::vector<int>::iterator i = this->_span.begin();
-		std::vector<int>::iterator j = this->_span.begin() +1;
+		std::vector<int>::iterator j = this->_span.begin() + 1;
 		int result = this->longestSpan();
 		int test = 0;
 		while (j != this->_span.end())
@@ -105,7 +110,15 @@ int Span::longestSpan()
 		throw NoSpanPossible();
 }
 
-// void Span::fillSpan(la quantité de cases à remplir(max), le nombre);
-// {
-// si la quantite est trop grande
-// }
+void Span::fillSpan(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+{
+	if (this->_span.size() + std::distance(begin, end) > this->_max)
+		throw FullArray();
+	this->_span.insert(this->_span.begin(), begin, end);
+}
+
+void Span::printSpan()
+{
+	for (long unsigned int i = 0; i < this->_span.size(); i++)
+		std::cout << BWHT << this->_span[i] << RES << std::endl;
+}
