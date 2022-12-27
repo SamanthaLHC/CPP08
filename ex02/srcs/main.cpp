@@ -13,6 +13,7 @@ int main()
 		MutantStack<int> mstack;
 		mstack.push(5);
 		mstack.push(17);
+		mstack.pop();
 		std::cout << BWHT << "top: " << mstack.top() << std::endl;
 		std::cout << BWHT << "stack size before push: " << mstack.size() << std::endl;
 		mstack.push(3);
@@ -50,13 +51,18 @@ int main()
 			std::cout << BWHT << s.top() << RES << std::endl;
 			s.pop();
 		}
+		std::cout << BWHT << "testing reverse (rbegin): " << RES << std::endl;
+		for (MutantStack<int>::reverse_iterator i = mstack.rbegin(); i != mstack.rend(); i++)
+		{
+			std::cout << BWHT << *i << RES << std::endl;
+		}
 	}
 	{
 		std::cout << BCYN << "SAME TEST BUT WITH LIST" << RES << std::endl;
 		std::list<int> mstack;
 		mstack.push_back(5);
 		mstack.push_back(17);
-		std::cout << BWHT << "front: " << mstack.front() << std::endl;
+		mstack.pop_back();
 		std::cout << BWHT << "back: " << mstack.back() << std::endl;
 		std::cout << BWHT << "list size before push_back: " << mstack.size() << std::endl;
 		mstack.push_back(3);
@@ -75,6 +81,11 @@ int main()
 		{
 			std::cout << *it << std::endl;
 			++it;
+		}
+		std::cout << BWHT << "testing reverse (rbegin): " << RES << std::endl;
+		for (std::list<int>::reverse_iterator i = mstack.rbegin(); i != mstack.rend(); i++)
+		{
+			std::cout << BWHT << *i << RES << std::endl;
 		}
 	}
 }
