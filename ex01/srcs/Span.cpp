@@ -92,7 +92,7 @@ int Span::shortestSpan()
 		int test = 0;
 		while (j != this->_span.end())
 		{
-			test = std::max(*i, *j) - std::min(*i, *j);
+			test = *j - *i;
 			if (result > test)
 				result = test;
 			i++;
