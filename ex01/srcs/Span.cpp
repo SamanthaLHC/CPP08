@@ -89,12 +89,9 @@ int Span::shortestSpan()
 		std::vector<int>::iterator i = this->_span.begin();
 		std::vector<int>::iterator j = this->_span.begin() + 1;
 		int result = this->longestSpan();
-		int test = 0;
 		while (j != this->_span.end())
 		{
-			test = *j - *i;
-			if (result > test)
-				result = test;
+			result = std::min((*j - *i), result);
 			i++;
 			j++;
 		}
